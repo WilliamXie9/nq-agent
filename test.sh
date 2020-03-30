@@ -310,7 +310,7 @@ tls_config() {
 			error
 		else
 			if [[ "$record" == [Yy] ]]; then
-				domain_check
+# 				domain_check
 				echo
 				echo
 				echo -e "$yellow 域名解析 = ${cyan}我确定已经有解析了$none"
