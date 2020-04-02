@@ -16,8 +16,10 @@
 
 # Set environment
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-export TESTID="s4ef3w4g54aaa"
-readonly TESTID
+
+TESTID=s4ef3w4g54aaa
+export TESTID #升级为环境变量
+source /etc/profile
 echo $TESTID
 
 # Prepare output
