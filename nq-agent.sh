@@ -16,6 +16,8 @@
 
 # Set environment
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export TESTID="s4ef3w4g54aaa"
+readonly TESTID
 
 # Agent version
 version="0.7.7"
