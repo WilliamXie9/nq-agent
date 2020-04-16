@@ -240,7 +240,7 @@ ping_as=$(prep $(num "$(ping -c 2 -w 2 ping-as.nodequery.com | grep rtt | cut -d
 pi=${PI}
 
 # Build data for post
-data_post2="token=${auth[0]}&data=$version / &PI=$PI/ &pi=$pi / &upTime=$uptime /$sessions /$processes /$processes_array /$file_handles /$file_handles_limit /$os_kernel /$os_name /$os_arch /$cpu_name /$cpu_cores / /$cpu_freq /$ram_total /$ram_usage /$swap_total /$swap_usage /$disk_array /$disk_total /$disk_usage /$connections /$nic /$ipv4 /$ipv6 /$rx /$tx /$rx_gap /$tx_gap /$load /$load_cpu /$load_io /$ping_eu /$ping_us /$ping_as"
+data_post2="token=${auth[0]} upTime=$uptime / nic=$nic / ipv4=$ipv4 / ipv6=$ipv6 / rx=$rx / tx=$tx / rx_gap=$rx_gap / tx_gap=$tx_gap / ping_eu=$ping_eu /ping_us=$ping_us /ping_as=$ping_as"
 data_post="token=${auth[0]}&data=$(base "$version") $(base "$uptime") $(base "$sessions") $(base "$processes") $(base "$processes_array") $(base "$file_handles") $(base "$file_handles_limit") $(base "$os_kernel") $(base "$os_name") $(base "$os_arch") $(base "$cpu_name") $(base "$cpu_cores") $(base "$cpu_freq") $(base "$ram_total") $(base "$ram_usage") $(base "$swap_total") $(base "$swap_usage") $(base "$disk_array") $(base "$disk_total") $(base "$disk_usage") $(base "$connections") $(base "$nic") $(base "$ipv4") $(base "$ipv6") $(base "$rx") $(base "$tx") $(base "$rx_gap") $(base "$tx_gap") $(base "$load") $(base "$load_cpu") $(base "$load_io") $(base "$ping_eu") $(base "$ping_us") $(base "$ping_as")"
 
 # print the date - testing
