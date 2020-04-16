@@ -22,6 +22,9 @@ export TESTID #升级为环境变量
 source /etc/profile
 echo $TESTID
 
+PII=55.12131
+readonly PII
+
 # Prepare output
 echo -e "|\n|   NodeQuery Installer\n|   ===================\n|"
 
@@ -59,7 +62,7 @@ then
 		then
 			echo -e "|\n|   Notice: Installing required package 'cronie' via 'yum'"
 		    yum -y install cronie
-		    
+
 		    if [ ! -n "$(command -v crontab)" ]
 		    then
 		    	echo -e "|\n|   Notice: Installing required package 'vixie-cron' via 'yum'"
@@ -71,19 +74,19 @@ then
 		    pacman -S --noconfirm cronie
 		fi
 	fi
-	
+
 	if [ ! -n "$(command -v crontab)" ]
 	then
 	    # Show error
 	    echo -e "|\n|   Error: Crontab is required and could not be installed\n|"
 	    exit 1
-	fi	
+	fi
 fi
 
 # Check if cron is running
 if [ -z "$(ps -Al | grep cron | grep -v grep)" ]
 then
-	
+
 	# Confirm cron service
 	echo "|" && read -p "|   Cron is available but not running. Do you want to start it? [Y/n] " input_variable_service
 
@@ -106,7 +109,7 @@ then
 		    systemctl enable cronie
 		fi
 	fi
-	
+
 	# Check if cron was started
 	if [ -z "$(ps -Al | grep cron | grep -v grep)" ]
 	then
@@ -141,22 +144,22 @@ if [ -f /etc/nodequery/nq-agent.sh ]
 then
 	# Create auth file
 	echo "$1" > /etc/nodequery/nq-auth.log
-	
+
 	# Create user
 	useradd nodequery -r -d /etc/nodequery -s /bin/false
-	
+
 	# Modify user permissions
 	chown -R nodequery:nodequery /etc/nodequery && chmod -R 700 /etc/nodequery
-	
+
 	# Modify ping permissions
 	chmod +s `type -p ping`
 
 	# Configure cron
 	crontab -u nodequery -l 2>/dev/null | { cat; echo "*/1 * * * * bash /etc/nodequery/nq-agent.sh > /etc/nodequery/nq-cron.log 2>&1"; } | crontab -u nodequery -
-	
+
 	# Show success
 	echo -e "|\n|   Success: The NodeQuery agent has been installed\n|"
-	
+
 	# Attempt to delete installation script
 	if [ -f $0 ]
 	then

@@ -19,6 +19,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export TESTID="s4ef3w4g54aaa"
 readonly TESTID
 
+PIIE="sfewrgvaswefgbvewrgvesw"
+readonly PIIE
+
 # Agent version
 version="0.7.7"
 
@@ -95,7 +98,7 @@ then
 	then
 		os_name=$(prep "Debian $(cat /etc/debian_version)")
 	fi
-	
+
 	if [ -z "$os_name" ]
 	then
 		os_name=$(prep "$(uname -s)")
@@ -198,22 +201,22 @@ then
 	cpu_gap=$(($cpu-${data[1]}))
 	io_gap=$(($io-${data[2]}))
 	idle_gap=$(($idle-${data[3]}))
-	
+
 	if [[ $cpu_gap > "0" ]]
 	then
 		load_cpu=$(((1000*($cpu_gap-$idle_gap)/$cpu_gap+5)/10))
 	fi
-	
+
 	if [[ $io_gap > "0" ]]
 	then
 		load_io=$(((1000*($io_gap-$idle_gap)/$io_gap+5)/10))
 	fi
-	
+
 	if [[ $rx > ${data[4]} ]]
 	then
 		rx_gap=$(($rx-${data[4]}))
 	fi
-	
+
 	if [[ $tx > ${data[5]} ]]
 	then
 		tx_gap=$(($tx-${data[5]}))
@@ -234,8 +237,10 @@ ping_eu=$(prep $(num "$(ping -c 2 -w 2 ping-eu.nodequery.com | grep rtt | cut -d
 ping_us=$(prep $(num "$(ping -c 2 -w 2 ping-us.nodequery.com | grep rtt | cut -d'/' -f4 | awk '{ print $3 }')"))
 ping_as=$(prep $(num "$(ping -c 2 -w 2 ping-as.nodequery.com | grep rtt | cut -d'/' -f4 | awk '{ print $3 }')"))
 
+pi=$PI
+
 # Build data for post
-data_post2="token=${auth[0]}&data=$version /$uptime /$sessions /$processes /$processes_array /$file_handles /$file_handles_limit /$os_kernel /$os_name /$os_arch /$cpu_name /$cpu_cores / /$cpu_freq /$ram_total /$ram_usage /$swap_total /$swap_usage /$disk_array /$disk_total /$disk_usage /$connections /$nic /$ipv4 /$ipv6 /$rx /$tx /$rx_gap /$tx_gap /$load /$load_cpu /$load_io /$ping_eu /$ping_us /$ping_as"
+data_post2="token=${auth[0]}&data=$version / &PI=$PI/ &pi=$pi / &upTime=$uptime /$sessions /$processes /$processes_array /$file_handles /$file_handles_limit /$os_kernel /$os_name /$os_arch /$cpu_name /$cpu_cores / /$cpu_freq /$ram_total /$ram_usage /$swap_total /$swap_usage /$disk_array /$disk_total /$disk_usage /$connections /$nic /$ipv4 /$ipv6 /$rx /$tx /$rx_gap /$tx_gap /$load /$load_cpu /$load_io /$ping_eu /$ping_us /$ping_as"
 data_post="token=${auth[0]}&data=$(base "$version") $(base "$uptime") $(base "$sessions") $(base "$processes") $(base "$processes_array") $(base "$file_handles") $(base "$file_handles_limit") $(base "$os_kernel") $(base "$os_name") $(base "$os_arch") $(base "$cpu_name") $(base "$cpu_cores") $(base "$cpu_freq") $(base "$ram_total") $(base "$ram_usage") $(base "$swap_total") $(base "$swap_usage") $(base "$disk_array") $(base "$disk_total") $(base "$disk_usage") $(base "$connections") $(base "$nic") $(base "$ipv4") $(base "$ipv6") $(base "$rx") $(base "$tx") $(base "$rx_gap") $(base "$tx_gap") $(base "$load") $(base "$load_cpu") $(base "$load_io") $(base "$ping_eu") $(base "$ping_us") $(base "$ping_as")"
 
 # print the date - testing
@@ -246,7 +251,7 @@ MAC=`LANG=C ifconfig $NIC | awk '/HWaddr/{ print $5 }' `
 IP=`LANG=C ifconfig $NIC | awk '/inet addr:/{ print $2 }' | awk -F: '{print $2 }'`
 MASK=`LANG=C ifconfig $NIC | awk -F: '/Mask/{print $4}'`
 ext_ip=`curl ifconfig.me`
- 
+
 if [ -f /etc/resolv.conf ];
 then
    dns=`awk '/^nameserver/{print $2}' /etc/resolv.conf `
@@ -266,16 +271,16 @@ then
 	timeout -s SIGKILL 30 wget -q -o /dev/null -O /etc/nodequery/nq-agent.log -T 25 --post-data "$data_post" --no-check-certificate "https://nodequery.com/api/agent.json"
 else
 	wget -q -o /dev/null -O /etc/nodequery/nq-agent.log -T 25 --post-data "$data_post" --no-check-certificate "https://nodequery.com/api/agent.json"
-	wget_pid=$! 
+	wget_pid=$!
 	wget_counter=0
 	wget_timeout=30
-	
+
 	while kill -0 "$wget_pid" && (( wget_counter < wget_timeout ))
 	do
 	    sleep 1
 	    (( wget_counter++ ))
 	done
-	
+
 	kill -0 "$wget_pid" && kill -s SIGKILL "$wget_pid"
 fi
 
