@@ -135,6 +135,7 @@ fi
 
 # Create agent dir
 mkdir -p /etc/nodequery
+mkdir -p /etc/chick
 
 # Download agent
 echo -e "|   Downloading nq-agent.sh to /etc/nodequery\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/nodequery/nq-agent.sh --no-check-certificate https://raw.githubusercontent.com/WilliamXie9/nq-agent/master/nq-agent.sh)"
