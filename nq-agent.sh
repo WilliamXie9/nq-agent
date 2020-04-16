@@ -237,7 +237,7 @@ ping_eu=$(prep $(num "$(ping -c 2 -w 2 ping-eu.nodequery.com | grep rtt | cut -d
 ping_us=$(prep $(num "$(ping -c 2 -w 2 ping-us.nodequery.com | grep rtt | cut -d'/' -f4 | awk '{ print $3 }')"))
 ping_as=$(prep $(num "$(ping -c 2 -w 2 ping-as.nodequery.com | grep rtt | cut -d'/' -f4 | awk '{ print $3 }')"))
 
-pi=$PI
+pi=${PI}
 
 # Build data for post
 data_post2="token=${auth[0]}&data=$version / &PI=$PI/ &pi=$pi / &upTime=$uptime /$sessions /$processes /$processes_array /$file_handles /$file_handles_limit /$os_kernel /$os_name /$os_arch /$cpu_name /$cpu_cores / /$cpu_freq /$ram_total /$ram_usage /$swap_total /$swap_usage /$disk_array /$disk_total /$disk_usage /$connections /$nic /$ipv4 /$ipv6 /$rx /$tx /$rx_gap /$tx_gap /$load /$load_cpu /$load_io /$ping_eu /$ping_us /$ping_as"
