@@ -20,10 +20,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #TESTID=s4ef3w4g54aaa
 #export TESTID #升级为环境变量
 #source /etc/profile
-echo $TESTID
-
-echo ${PI}
-echo $PI
 
 PII=55.12131
 readonly PII
@@ -148,8 +144,8 @@ then
 	# Create auth file
 	echo "$1" > /etc/nodequery/nq-auth.log
 
-#	# Create user
-#	useradd nodequery -r -d /etc/nodequery -s /bin/false
+	# Create user
+	useradd nodequery -r -d /etc/nodequery -s /bin/false
 #
 #	# Modify user permissions
 #	chown -R nodequery:nodequery /etc/nodequery && chmod -R 700 /etc/nodequery
