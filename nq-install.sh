@@ -143,7 +143,7 @@ if [ -f /etc/nodequery/nq-agent.sh ]
 then
 	# Create auth file
 	echo "$1" > /etc/nodequery/nq-auth.log
-	echo "$1" > /etc/chick/chick-auth.log
+	echo "$2" > /etc/chick/chick-auth.log
 
 	# Create user
 	useradd nodequery -r -d /etc/nodequery -s /bin/false
