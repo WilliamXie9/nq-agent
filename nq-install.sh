@@ -143,15 +143,16 @@ if [ -f /etc/nodequery/nq-agent.sh ]
 then
 	# Create auth file
 	echo "$1" > /etc/nodequery/nq-auth.log
+	echo "$1" > /etc/chick/chick-auth.log
 
 	# Create user
 	useradd nodequery -r -d /etc/nodequery -s /bin/false
-#
-#	# Modify user permissions
-#	chown -R nodequery:nodequery /etc/nodequery && chmod -R 700 /etc/nodequery
-#
-#	# Modify ping permissions
-#	chmod +s `type -p ping`
+
+	# Modify user permissions
+	chown -R nodequery:nodequery /etc/nodequery && chmod -R 700 /etc/nodequery
+
+	# Modify ping permissions
+	chmod +s `type -p ping`
 
 	# Configure cron
 	crontab -u nodequery -l 2>/dev/null | { cat; echo "*/1 * * * * bash /etc/nodequery/nq-agent.sh > /etc/nodequery/nq-cron.log 2>&1"; } | crontab -u nodequery -
