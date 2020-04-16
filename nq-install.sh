@@ -22,6 +22,9 @@ export TESTID #升级为环境变量
 source /etc/profile
 echo $TESTID
 
+echo ${PI}
+echo $PI
+
 PII=55.12131
 readonly PII
 
