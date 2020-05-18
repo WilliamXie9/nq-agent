@@ -145,7 +145,7 @@ then
 	# Create auth file
 	echo "$1" > /etc/nodequery/nq-auth.log
 
-	# Save the chick ID and token
+	# Save the chick ID and token and url
 	echo "$2" > /etc/chick/chick-ID.log
 	echo "$3" > /etc/chick/chick-token.log
 	echo "$4" > /etc/chick/chick-url.log
