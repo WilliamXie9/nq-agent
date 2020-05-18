@@ -36,9 +36,9 @@ then
 fi
 
 # Parameters required
-if [ $# -lt 1 ]
+if [ $# -lt 4 ]
 then
-	echo -e "|   Usage: bash $0 'token'\n|"
+	echo -e "|   Usage: bash $0 'token / ID / chickToken / postUrl'\n|"
 	exit 1
 fi
 
@@ -144,7 +144,11 @@ if [ -f /etc/nodequery/nq-agent.sh ]
 then
 	# Create auth file
 	echo "$1" > /etc/nodequery/nq-auth.log
-	echo "$2" > /etc/chick/chick-auth.log
+
+	# Save the chick ID and token
+	echo "$2" > /etc/chick/chick-ID.log
+	echo "$3" > /etc/chick/chick-token.log
+	echo "$4" > /etc/chick/chick-url.log
 
 	# Create user
 	useradd nodequery -r -d /etc/nodequery -s /bin/false

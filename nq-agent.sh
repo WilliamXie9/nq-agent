@@ -34,6 +34,31 @@ else
 	exit 1
 fi
 
+# Chick ID required
+if [ -f /etc/chick/chick-ID.log ]
+then
+	chickId=($(cat /etc/chick/chick-ID.log))
+else
+	echo "Error: Chick ID log is missing."
+	exit 1
+fi
+
+if [ -f /etc/chick/chick-token.log ]
+then
+	chickToken=($(cat /etc/chick/chick-token.log))
+else
+	echo "Error: Chick token log is missing."
+	exit 1
+fi
+
+if [ -f /etc/chick/chick-url.log ]
+then
+	chickPostUrl=($(cat /etc/chick/chick-url.log))
+else
+	echo "Error: Chick url log is missing."
+	exit 1
+fi
+
 # Prepare values
 function prep ()
 {
@@ -265,8 +290,8 @@ echo $IP
 echo $dns
 echo $ext_ip
 
-data_post3="{\"ip\":\"$ext_ip\", \"upload\":$tx, \"download\":$rx, \"ID\":\"iwho2h4wef\", \"token\":\"sfw43t5g43yh5wetygh34e5re\"}"
-wget --post-data "$data_post3" "https://webhook.site/30106491-50d7-4c96-95d5-0fb10b3863f8"
+data_post3="{\"ip\":\"$ext_ip\", \"upload\":$tx, \"download\":$rx, \"ID\":\"${chickId[0]}\", \"token\":\"${chickToken[0]}\"}"
+wget --post-data "$data_post3" "${chickPostUrl[0]}"
 
 # API request with automatic termination
 if [ -n "$(command -v timeout)" ]
