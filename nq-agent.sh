@@ -290,7 +290,7 @@ echo $IP
 echo $dns
 echo $ext_ip
 
-data_post3="{\"ip\":\"$ext_ip\", \"upload\":$tx, \"download\":$rx, \"Id"id": 3,\":\"${chickId[0]}\", \"token\":\"${chickToken[0]}\"}"
+data_post3="{\"ip\":\"$ext_ip\", \"upload\":$tx, \"download\":$rx, \"id\":\"${chickId[0]}\", \"token\":\"${chickToken[0]}\"}"
 wget --post-data "$data_post3" "${chickPostUrl[0]}"
 
 # API request with automatic termination
