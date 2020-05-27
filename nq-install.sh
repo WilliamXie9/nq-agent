@@ -21,8 +21,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #export TESTID #升级为环境变量
 #source /etc/profile
 
-PII=55.12131
-readonly PII
 
 # Prepare output
 echo -e "|\n|   NodeQuery Installer\n|   ===================\n|"
@@ -160,7 +158,7 @@ then
 	chmod +s `type -p ping`
 
 	# Configure cron
-	crontab -u nodequery -l 2>/dev/null | { cat; echo "*/1 * * * * bash /etc/nodequery/nq-agent.sh > /etc/nodequery/nq-cron.log 2>&1"; } | crontab -u nodequery -
+	crontab -u nodequery -l 2>/dev/null | { cat; echo "*/3 * * * * bash /etc/nodequery/nq-agent.sh > /etc/nodequery/nq-cron.log 2>&1"; } | crontab -u nodequery -
 
 	# Show success
 	echo -e "|\n|   Success: The NodeQuery agent has been installed\n|"

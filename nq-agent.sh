@@ -19,8 +19,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #export TESTID="s4ef3w4g54aaa"
 #readonly TESTID
 
-PIIE="sfewrgvaswefgbvewrgvesw"
-readonly PIIE
 
 # Agent version
 version="0.7.7"
@@ -43,6 +41,7 @@ else
 	exit 1
 fi
 
+# Chick Token required
 if [ -f /etc/chick/chick-token.log ]
 then
 	chickToken=($(cat /etc/chick/chick-token.log))
@@ -51,6 +50,7 @@ else
 	exit 1
 fi
 
+# Chick report url required
 if [ -f /etc/chick/chick-url.log ]
 then
 	chickPostUrl=($(cat /etc/chick/chick-url.log))
